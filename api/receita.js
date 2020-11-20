@@ -10,7 +10,7 @@ module.exports = app => {
 
         try {
 
-            existsOrError(receita.nome, 'Nome ds receita não informado')
+            existsOrError(receita.nome, 'Nome da receita não informado')
             existsOrError(receita.temperatura1, 'Informar temperatura1')
             existsOrError(receita.temperatura1Max, 'Informar temperatura maxima temperatura1')
             existsOrError(receita.temperatura1Min, 'Informar temperatura minima temperatura1')
@@ -28,7 +28,7 @@ module.exports = app => {
             existsOrError(receita.cargaMin, 'Informar carga minima')
 
 
-            const receitaFromBD = await app.db('receitas')
+            const receitaFromBD = await app.bancoDados('receitas')
                 .where({ nome: receita.nome })
 
             if (!receita.id) {
@@ -41,13 +41,13 @@ module.exports = app => {
 
 
         if (receita.id) {
-            app.db('receitas')
+            app.bancoDados('receitas')
                 .update(receita)
                 .where({ id: receita.id })
                 .then(() => res.status(204).send())
                 .catch(err => res.status(500).send(err))
         } else {
-            app.db('receitas')
+            app.bancoDados('receitas')
                 .insert(receita)
                 .then(() => res.status(204).send())
                 .catch(err => res.status(500).send(err))
@@ -56,7 +56,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         console.log("chegou aqui get... ")
-        app.db('receitas')
+        app.bancoDados('receitas')
             .select('id', 'nome')
             .then(receitas => res.json(receitas))
             .catch(err => res.status(500).send(err))

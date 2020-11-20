@@ -9,4 +9,7 @@ module.exports = app => {
     app.route('/logins')
         .post(app.api.login.save)
         .get(app.api.login.get)
+
+    app.route('/realtimeData')
+        .get(app.api.dados.getRealTime)
 }
