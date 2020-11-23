@@ -1,10 +1,10 @@
-const modbusServer = require("../modbus/modbusServer");
-const modbusClient = require("../modbus/modbusClient");
+const {getData} = require("../services/requestDataCLP")();
 
 module.exports = (app) => {
-  const getRealTime = (req, res) => {
-    const dados = modbusClient.getDados();
-    res.send(dados || {});
+  const getRealTime = (req, response) => {
+    let dados = getData();
+    
+    response.send(dados || {});
   };
 
   return { getRealTime };

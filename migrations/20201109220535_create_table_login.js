@@ -4,6 +4,8 @@ exports.up = function (knex) {
         table.increments('id').primary()
         table.string('usuario').notNull()
         table.string('senha').notNull()
+        table.bool('manutencao').notNull()
+        table.bool('editReceita').notNull()
     })
 };
 

@@ -1,6 +1,8 @@
 const app = require("express")();
 const consign = require("consign");
+const {initReadCLP} = require("./services/requestDataCLP")();
 const bancoDados = require("./config/bd");
+const {saveData} = require("./services/saveDataClpDb");
 
 app.bancoDados = bancoDados;
 
@@ -10,6 +12,9 @@ consign()
   .then("./api")
   .then("./config/routes.js")
   .into(app);
+
+  initReadCLP();
+  saveData();
 
 const port = 3001;
 
